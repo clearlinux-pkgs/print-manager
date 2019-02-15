@@ -5,19 +5,20 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : print-manager
-Version  : 18.08.0
-Release  : 1
-URL      : https://download.kde.org/stable/applications/18.08.0/src/print-manager-18.08.0.tar.xz
-Source0  : https://download.kde.org/stable/applications/18.08.0/src/print-manager-18.08.0.tar.xz
-Source99 : https://download.kde.org/stable/applications/18.08.0/src/print-manager-18.08.0.tar.xz.sig
+Version  : 18.12.2
+Release  : 2
+URL      : https://download.kde.org/stable/applications/18.12.2/src/print-manager-18.12.2.tar.xz
+Source0  : https://download.kde.org/stable/applications/18.12.2/src/print-manager-18.12.2.tar.xz
+Source99 : https://download.kde.org/stable/applications/18.12.2/src/print-manager-18.12.2.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
-Requires: print-manager-bin
-Requires: print-manager-lib
-Requires: print-manager-data
-Requires: print-manager-license
-Requires: print-manager-locales
+Requires: print-manager-bin = %{version}-%{release}
+Requires: print-manager-data = %{version}-%{release}
+Requires: print-manager-lib = %{version}-%{release}
+Requires: print-manager-license = %{version}-%{release}
+Requires: print-manager-locales = %{version}-%{release}
+Requires: cups
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : cups-dev
@@ -30,8 +31,8 @@ current printing management of KDE.
 %package bin
 Summary: bin components for the print-manager package.
 Group: Binaries
-Requires: print-manager-data
-Requires: print-manager-license
+Requires: print-manager-data = %{version}-%{release}
+Requires: print-manager-license = %{version}-%{release}
 
 %description bin
 bin components for the print-manager package.
@@ -48,10 +49,10 @@ data components for the print-manager package.
 %package dev
 Summary: dev components for the print-manager package.
 Group: Development
-Requires: print-manager-lib
-Requires: print-manager-bin
-Requires: print-manager-data
-Provides: print-manager-devel
+Requires: print-manager-lib = %{version}-%{release}
+Requires: print-manager-bin = %{version}-%{release}
+Requires: print-manager-data = %{version}-%{release}
+Provides: print-manager-devel = %{version}-%{release}
 
 %description dev
 dev components for the print-manager package.
@@ -60,8 +61,8 @@ dev components for the print-manager package.
 %package lib
 Summary: lib components for the print-manager package.
 Group: Libraries
-Requires: print-manager-data
-Requires: print-manager-license
+Requires: print-manager-data = %{version}-%{release}
+Requires: print-manager-license = %{version}-%{release}
 
 %description lib
 lib components for the print-manager package.
@@ -84,25 +85,25 @@ locales components for the print-manager package.
 
 
 %prep
-%setup -q -n print-manager-18.08.0
+%setup -q -n print-manager-18.12.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535307433
-mkdir clr-build
+export SOURCE_DATE_EPOCH=1550274330
+mkdir -p clr-build
 pushd clr-build
 %cmake ..
-make  %{?_smp_mflags}
+make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535307433
+export SOURCE_DATE_EPOCH=1550274330
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/print-manager
-cp COPYING %{buildroot}/usr/share/doc/print-manager/COPYING
+mkdir -p %{buildroot}/usr/share/package-licenses/print-manager
+cp COPYING %{buildroot}/usr/share/package-licenses/print-manager/COPYING
 pushd clr-build
 %make_install
 popd
@@ -150,8 +151,8 @@ popd
 /usr/lib64/qt5/qml/org/kde/plasma/printmanager/qmldir
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/print-manager/COPYING
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/print-manager/COPYING
 
 %files locales -f plasma_applet_org.kde.plasma.printmanager.lang -f print-manager.lang
 %defattr(-,root,root,-)
