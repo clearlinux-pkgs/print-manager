@@ -1,1 +1,1 @@
-Configure miss: /builddir/build/BUILD/print-manager-19.12.0/libkcups/KIppRequest.cpp:192:65: warning: format not a string literal and no format arguments [-Wformat-security]
+Configure miss: /builddir/build/BUILD/print-manager-19.12.1/libkcups/KIppRequest.cpp:192:65: warning: format not a string literal and no format arguments [-Wformat-security]
