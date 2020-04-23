@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : print-manager
-Version  : 19.12.3
-Release  : 17
-URL      : https://download.kde.org/stable/release-service/19.12.3/src/print-manager-19.12.3.tar.xz
-Source0  : https://download.kde.org/stable/release-service/19.12.3/src/print-manager-19.12.3.tar.xz
-Source1  : https://download.kde.org/stable/release-service/19.12.3/src/print-manager-19.12.3.tar.xz.sig
+Version  : 20.04.0
+Release  : 18
+URL      : https://download.kde.org/stable/release-service/20.04.0/src/print-manager-20.04.0.tar.xz
+Source0  : https://download.kde.org/stable/release-service/20.04.0/src/print-manager-20.04.0.tar.xz
+Source1  : https://download.kde.org/stable/release-service/20.04.0/src/print-manager-20.04.0.tar.xz.sig
 Summary  : A tool for managing print jobs and printers
 Group    : Development/Tools
 License  : GPL-2.0
@@ -88,15 +88,15 @@ locales components for the print-manager package.
 
 
 %prep
-%setup -q -n print-manager-19.12.3
-cd %{_builddir}/print-manager-19.12.3
+%setup -q -n print-manager-20.04.0
+cd %{_builddir}/print-manager-20.04.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583523874
+export SOURCE_DATE_EPOCH=1587675032
 mkdir -p clr-build
 pushd clr-build
 # -Werror is for werrorists
@@ -113,10 +113,10 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1583523874
+export SOURCE_DATE_EPOCH=1587675032
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/print-manager
-cp %{_builddir}/print-manager-19.12.3/COPYING %{buildroot}/usr/share/package-licenses/print-manager/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/print-manager-20.04.0/COPYING %{buildroot}/usr/share/package-licenses/print-manager/4cc77b90af91e615a64ae04893fdffa7939db84c
 pushd clr-build
 %make_install
 popd
@@ -139,7 +139,6 @@ popd
 /usr/share/applications/org.kde.kde-add-printer.desktop
 /usr/share/knotifications5/printmanager.notifyrc
 /usr/share/kservices5/kcm_printer_manager.desktop
-/usr/share/kservices5/kded/printmanager.desktop
 /usr/share/kservices5/plasma-applet-org.kde.plasma.printmanager.desktop
 /usr/share/metainfo/org.kde.plasma.printmanager.appdata.xml
 /usr/share/metainfo/org.kde.print-manager.metainfo.xml
@@ -160,7 +159,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/qt5/plugins/kcm_printer_manager.so
-/usr/lib64/qt5/plugins/kded_printmanager.so
+/usr/lib64/qt5/plugins/kf5/kded/printmanager.so
 /usr/lib64/qt5/qml/org/kde/plasma/printmanager/libprintmanager.so
 /usr/lib64/qt5/qml/org/kde/plasma/printmanager/qmldir
 
