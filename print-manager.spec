@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : print-manager
-Version  : 20.04.2
-Release  : 20
-URL      : https://download.kde.org/stable/release-service/20.04.2/src/print-manager-20.04.2.tar.xz
-Source0  : https://download.kde.org/stable/release-service/20.04.2/src/print-manager-20.04.2.tar.xz
-Source1  : https://download.kde.org/stable/release-service/20.04.2/src/print-manager-20.04.2.tar.xz.sig
+Version  : 20.08.0
+Release  : 21
+URL      : https://download.kde.org/stable/release-service/20.08.0/src/print-manager-20.08.0.tar.xz
+Source0  : https://download.kde.org/stable/release-service/20.08.0/src/print-manager-20.08.0.tar.xz
+Source1  : https://download.kde.org/stable/release-service/20.08.0/src/print-manager-20.08.0.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
@@ -88,15 +88,15 @@ locales components for the print-manager package.
 
 
 %prep
-%setup -q -n print-manager-20.04.2
-cd %{_builddir}/print-manager-20.04.2
+%setup -q -n print-manager-20.08.0
+cd %{_builddir}/print-manager-20.08.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1591886321
+export SOURCE_DATE_EPOCH=1597800397
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -108,14 +108,14 @@ export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %cmake ..
-make  %{?_smp_mflags}  VERBOSE=1
+make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1591886321
+export SOURCE_DATE_EPOCH=1597800397
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/print-manager
-cp %{_builddir}/print-manager-20.04.2/COPYING %{buildroot}/usr/share/package-licenses/print-manager/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/print-manager-20.08.0/COPYING %{buildroot}/usr/share/package-licenses/print-manager/4cc77b90af91e615a64ae04893fdffa7939db84c
 pushd clr-build
 %make_install
 popd
@@ -145,7 +145,6 @@ popd
 /usr/share/plasma/plasmoids/org.kde.plasma.printmanager/contents/config/main.xml
 /usr/share/plasma/plasmoids/org.kde.plasma.printmanager/contents/ui/PopupDialog.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.printmanager/contents/ui/PrinterItem.qml
-/usr/share/plasma/plasmoids/org.kde.plasma.printmanager/contents/ui/StatusView.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.printmanager/contents/ui/config.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.printmanager/contents/ui/printmanager.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.printmanager/metadata.desktop
