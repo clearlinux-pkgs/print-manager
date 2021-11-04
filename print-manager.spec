@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : print-manager
-Version  : 21.08.2
-Release  : 32
-URL      : https://download.kde.org/stable/release-service/21.08.2/src/print-manager-21.08.2.tar.xz
-Source0  : https://download.kde.org/stable/release-service/21.08.2/src/print-manager-21.08.2.tar.xz
-Source1  : https://download.kde.org/stable/release-service/21.08.2/src/print-manager-21.08.2.tar.xz.sig
+Version  : 21.08.3
+Release  : 33
+URL      : https://download.kde.org/stable/release-service/21.08.3/src/print-manager-21.08.3.tar.xz
+Source0  : https://download.kde.org/stable/release-service/21.08.3/src/print-manager-21.08.3.tar.xz
+Source1  : https://download.kde.org/stable/release-service/21.08.3/src/print-manager-21.08.3.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause GPL-2.0 LGPL-2.0 LGPL-2.1 LGPL-3.0
@@ -24,7 +24,6 @@ BuildRequires : buildreq-kde
 BuildRequires : cups
 BuildRequires : cups-dev
 BuildRequires : extra-cmake-modules-data
-BuildRequires : plasma-framework-dev
 
 %description
 This project aims to be a full replacement for the
@@ -88,15 +87,15 @@ locales components for the print-manager package.
 
 
 %prep
-%setup -q -n print-manager-21.08.2
-cd %{_builddir}/print-manager-21.08.2
+%setup -q -n print-manager-21.08.3
+cd %{_builddir}/print-manager-21.08.3
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1634314714
+export SOURCE_DATE_EPOCH=1636046736
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -112,16 +111,16 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1634314714
+export SOURCE_DATE_EPOCH=1636046736
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/print-manager
-cp %{_builddir}/print-manager-21.08.2/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/print-manager/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
-cp %{_builddir}/print-manager-21.08.2/LICENSES/GPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/print-manager/3e8971c6c5f16674958913a94a36b1ea7a00ac46
-cp %{_builddir}/print-manager-21.08.2/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/print-manager/a4c60b3fefda228cd7439d3565df043192fef137
-cp %{_builddir}/print-manager-21.08.2/LICENSES/LGPL-2.1-only.txt %{buildroot}/usr/share/package-licenses/print-manager/81b58c89ceef8e9f8bd5d00a287edbd15f9d3567
-cp %{_builddir}/print-manager-21.08.2/LICENSES/LGPL-3.0-only.txt %{buildroot}/usr/share/package-licenses/print-manager/19d98e1b6f8ef12849ea4012a052d3907f336c91
-cp %{_builddir}/print-manager-21.08.2/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/print-manager/e458941548e0864907e654fa2e192844ae90fc32
-cp %{_builddir}/print-manager-21.08.2/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/print-manager/e458941548e0864907e654fa2e192844ae90fc32
+cp %{_builddir}/print-manager-21.08.3/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/print-manager/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
+cp %{_builddir}/print-manager-21.08.3/LICENSES/GPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/print-manager/3e8971c6c5f16674958913a94a36b1ea7a00ac46
+cp %{_builddir}/print-manager-21.08.3/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/print-manager/a4c60b3fefda228cd7439d3565df043192fef137
+cp %{_builddir}/print-manager-21.08.3/LICENSES/LGPL-2.1-only.txt %{buildroot}/usr/share/package-licenses/print-manager/81b58c89ceef8e9f8bd5d00a287edbd15f9d3567
+cp %{_builddir}/print-manager-21.08.3/LICENSES/LGPL-3.0-only.txt %{buildroot}/usr/share/package-licenses/print-manager/19d98e1b6f8ef12849ea4012a052d3907f336c91
+cp %{_builddir}/print-manager-21.08.3/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/print-manager/e458941548e0864907e654fa2e192844ae90fc32
+cp %{_builddir}/print-manager-21.08.3/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/print-manager/e458941548e0864907e654fa2e192844ae90fc32
 pushd clr-build
 %make_install
 popd
