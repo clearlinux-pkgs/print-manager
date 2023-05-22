@@ -6,11 +6,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : print-manager
-Version  : 23.04.0
-Release  : 51
-URL      : https://download.kde.org/stable/release-service/23.04.0/src/print-manager-23.04.0.tar.xz
-Source0  : https://download.kde.org/stable/release-service/23.04.0/src/print-manager-23.04.0.tar.xz
-Source1  : https://download.kde.org/stable/release-service/23.04.0/src/print-manager-23.04.0.tar.xz.sig
+Version  : 23.04.1
+Release  : 52
+URL      : https://download.kde.org/stable/release-service/23.04.1/src/print-manager-23.04.1.tar.xz
+Source0  : https://download.kde.org/stable/release-service/23.04.1/src/print-manager-23.04.1.tar.xz
+Source1  : https://download.kde.org/stable/release-service/23.04.1/src/print-manager-23.04.1.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause GPL-2.0 LGPL-2.0 LGPL-2.1 LGPL-3.0
@@ -24,6 +24,7 @@ BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : cups-dev
 BuildRequires : extra-cmake-modules-data
+BuildRequires : plasma-framework-dev
 BuildRequires : qt6base-dev
 # Suppress stripping binaries
 %define __strip /bin/true
@@ -91,31 +92,48 @@ locales components for the print-manager package.
 
 
 %prep
-%setup -q -n print-manager-23.04.0
-cd %{_builddir}/print-manager-23.04.0
+%setup -q -n print-manager-23.04.1
+cd %{_builddir}/print-manager-23.04.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682009717
+export SOURCE_DATE_EPOCH=1684792567
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+%cmake ..
+make  %{?_smp_mflags}
+popd
+mkdir -p clr-build-avx2
+pushd clr-build-avx2
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export FCFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export FFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export CFLAGS="$CFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export FFLAGS="$FFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export FCFLAGS="$FCFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1682009717
+export SOURCE_DATE_EPOCH=1684792567
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/print-manager
 cp %{_builddir}/print-manager-%{version}/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/print-manager/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c || :
@@ -125,17 +143,24 @@ cp %{_builddir}/print-manager-%{version}/LICENSES/LGPL-2.1-only.txt %{buildroot}
 cp %{_builddir}/print-manager-%{version}/LICENSES/LGPL-3.0-only.txt %{buildroot}/usr/share/package-licenses/print-manager/19d98e1b6f8ef12849ea4012a052d3907f336c91 || :
 cp %{_builddir}/print-manager-%{version}/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/print-manager/e458941548e0864907e654fa2e192844ae90fc32 || :
 cp %{_builddir}/print-manager-%{version}/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/print-manager/e458941548e0864907e654fa2e192844ae90fc32 || :
+pushd clr-build-avx2
+%make_install_v3  || :
+popd
 pushd clr-build
 %make_install
 popd
 %find_lang plasma_applet_org.kde.plasma.printmanager
 %find_lang print-manager
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/configure-printer
+/V3/usr/bin/kde-add-printer
+/V3/usr/bin/kde-print-queue
 /usr/bin/configure-printer
 /usr/bin/kde-add-printer
 /usr/bin/kde-print-queue
@@ -157,10 +182,14 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
+/V3/usr/lib64/libkcupslib.so
 /usr/lib64/libkcupslib.so
 
 %files lib
 %defattr(-,root,root,-)
+/V3/usr/lib64/qt5/plugins/kf5/kded/printmanager.so
+/V3/usr/lib64/qt5/plugins/plasma/kcms/systemsettings_qwidgets/kcm_printer_manager.so
+/V3/usr/lib64/qt5/qml/org/kde/plasma/printmanager/libprintmanager.so
 /usr/lib64/qt5/plugins/kf5/kded/printmanager.so
 /usr/lib64/qt5/plugins/plasma/kcms/systemsettings_qwidgets/kcm_printer_manager.so
 /usr/lib64/qt5/qml/org/kde/plasma/printmanager/libprintmanager.so
