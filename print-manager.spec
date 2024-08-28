@@ -9,7 +9,7 @@
 #
 Name     : print-manager
 Version  : 6.1.4
-Release  : 75
+Release  : 76
 URL      : https://download.kde.org/stable/plasma/6.1.4/print-manager-6.1.4.tar.xz
 Source0  : https://download.kde.org/stable/plasma/6.1.4/print-manager-6.1.4.tar.xz
 Source1  : https://download.kde.org/stable/plasma/6.1.4/print-manager-6.1.4.tar.xz.sig
